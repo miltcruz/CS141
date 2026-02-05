@@ -1,12 +1,56 @@
 package app;
 
+import java.util.Scanner;
+import parts.Engine;
+import parts.Wheel;
+
 public class Main {
     public static void main(String[] args) { 
+        Scanner scanner = new Scanner(System.in);
+
         try {
             //Ask user for engine details
+            System.out.print("Enter engine type (e.g. gasoline, diesel, electric): ");
+            String type = scanner.nextLine().trim();
+
+            System.out.print("Enter engine horsepower (positive integer): ");
+            int horsepower = Integer.parseInt(scanner.nextLine().trim());
+
+            // Create Engine object
+            Engine engine = new Engine(horsepower, type);
+
+            // Ask user for number of wheels
+            System.out.print("Enter number of wheels (positive integer): ");
+            int numWheels = Integer.parseInt(scanner.nextLine().trim());
+            if (numWheels <= 0) {
+                throw new IllegalArgumentException("Number of wheels must be a positive integer");
+            }
+
+            // Create the wheels array
+            Wheel[] wheels = new Wheel[numWheels];
+            for (int i = 0; i < numWheels; i++) {
+                System.out.printf("Enter size for wheel %d (positive number): ", i + 1);
+                double size = Double.parseDouble(scanner.nextLine().trim());
+
+                System.out.printf("Enter pressure for wheel %d (non-negative number): ", i + 1);
+                double pressure = Double.parseDouble(scanner.nextLine().trim());
+
+                // Create Wheel object
+                wheels[i] = new Wheel(size, pressure);
+            }
+
+            // create a car object
+            Car car = new Car(engine, wheels);
+            System.out.println(car.toString());
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Invalid parameters: " + e.getMessage());
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            scanner.close();
         }
      }
 }
