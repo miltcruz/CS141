@@ -28,6 +28,7 @@ public class ArraysArrayList {
 
         // while loop
         int index = 0;
+        
         while (index < list.size()) {
             System.out.println("index " + index + ": " + list.get(index));
             index++;
@@ -40,8 +41,9 @@ public class ArraysArrayList {
         list.add(123); // This will cause a compile-time error because the list is defined to hold String objects
         names.add("Charlie");
 
-        for (String x : names) {
-            System.out.println(x);
+        // for-each loop
+        for (String name : names) {
+            System.out.println(name);
         }
    }
 }
